@@ -69,14 +69,14 @@ exports.createEvent = function (req, res, next) {
             cost: req.body.cost,
             infoline: req.body.infoline,
             organizer: req.body.organizer,
-            invitees: req.body.invitees,
-            inviteesLength : req.body.inviteesLength,
+           
             attendees: req.body.attendees,
             attendeesLength: req.body.attendeesLength,
             created_at : req.body.created_at,
             country : req.body.country,
             created_by : req.body.created_by,
-            qrcodetxt : req.body.qrcodetxt
+            
+            picture : req.body.picture
         }
     );
 

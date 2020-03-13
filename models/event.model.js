@@ -10,13 +10,14 @@ let EventSchema = new Schema({
     cost: {type: String, required: [true, 'Cost address is required.']},
     infoline: {type: String, required: [true, 'Infoline address is required.']},
     organizer: {type: String, required: [true, 'Organizer address is required.']},
-    invitees: [{ type: Schema.Types.ObjectId, ref: 'User', default : [] }],
-    inviteesLength : { type : Number, required: true, default: 0 },
+    // 2 attributs by by 
     attendees: [{ type: Schema.Types.ObjectId, ref: 'User',  default : [] }],
     attendeesLength : { type : Number, required: true, default: 0 },
     created_at : { type : Date, required: true, default: Date.now },
     created_by : { type : Schema.Types.ObjectId, required: true },
-    qrcodetxt: {type: String, defaul : ''}
+    //new 
+    picture: {type: String, required: [true, 'Picture is required']}
+
 });
 
 module.exports = mongoose.model('Event', EventSchema);
