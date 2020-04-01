@@ -37,24 +37,6 @@ exports.user_details_by_username_and_password = function (req, res, next) {
 
 
 
-exports.user_create = function (req, res, next) {  
-    let user = new User(
-        {
-            username: req.body.username,
-            password: req.body.password,
-            email : req.body.email,
-            country : req.body.country
-        }
-    );
-
-    user.save(function (err, createdUser) {
-        if (err) return next(err);
-        res.send(createdUser);
-    });
-};
-
-
-
 exports.user_update = function (req, res) {
     User.findByIdAndUpdate(req.params.id, {$set: req.body}, function (err, user) {
         if (err) return next(err);
@@ -68,5 +50,29 @@ exports.user_delete = function (req, res) {
     User.findByIdAndRemove(req.params.id, function (err) {
         if (err) return next(err);
         res.send('User Deleted successfully!');
+    });
+};
+
+
+
+exports.user_create = function (req, res, next) {  
+    let user = new User(
+        {
+            username: req.body.username,
+            password: req.body.password,
+            email : req.body.email,
+            country : req.body.country,
+            role  : req.body.role,
+            avatar  : req.body.avatar,
+            subscribers: req.body.subscribers,
+            subscribersLength: req.body.subscribersLength,
+            createdAt : req.body.createdAt
+
+        }
+    );
+
+    user.save(function (err, createdUser) {
+        if (err) return next(err);
+        res.send(createdUser);
     });
 };
