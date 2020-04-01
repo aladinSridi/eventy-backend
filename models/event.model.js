@@ -3,20 +3,19 @@ const Schema = mongoose.Schema;
 const User = require('../models/user.model').Schema;
 
 let EventSchema = new Schema({
-    date: {type: String, required: [true, 'Date address is required.']},
     title: {type: String, required: [true, 'Title address is required.'], max: 100},
-    country: {type: String, required: [true, 'Country address is required.'], max: 100}, 
     description: {type: String, required: [true, 'Description address is required.']},
+    date: {type: String, required: [true, 'Date address is required.']},
+    country: {type: String, required: [true, 'Country address is required.'], max: 100},
+    category: {type: String, required: [true, 'Category address is required.'], max: 100},
     cost: {type: String, required: [true, 'Cost address is required.']},
     infoline: {type: String, required: [true, 'Infoline address is required.']},
     organizer: {type: String, required: [true, 'Organizer address is required.']},
-    invitees: [{ type: Schema.Types.ObjectId, ref: 'User', default : [] }],
-    inviteesLength : { type : Number, required: true, default: 0 },
+    created_by : { type : Schema.Types.ObjectId, required: true },
+    created_at : { type : Date, required: true, default: Date.now },
     attendees: [{ type: Schema.Types.ObjectId, ref: 'User',  default : [] }],
     attendeesLength : { type : Number, required: true, default: 0 },
-    created_at : { type : Date, required: true, default: Date.now },
-    created_by : { type : Schema.Types.ObjectId, required: true },
-    qrcodetxt: {type: String, defaul : ''}
+    picture: {type: String, required: [true, 'Picture is required']}
 });
 
 module.exports = mongoose.model('Event', EventSchema);
