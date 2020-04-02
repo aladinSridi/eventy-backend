@@ -1,5 +1,32 @@
 const Event = require('../models/event.model');
 
+var fs = require('fs');
+
+const express = require('express');
+var router = express.Router();
+
+const multer = require("multer");
+const mongoose = require('mongoose');
+var MongoClient = require('mongodb').MongoClient;
+
+var db = mongoose.connection;
+
+
+// SET STORAGE
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, 'uploads')
+    },
+    filename: (req, file, cb) => {
+        let a = file.originalname.split('.')
+        cb(null, `${file.fieldname}-${Date.now()}.${a[a.length-1]}`)
+    }
+})
+
+const upload = multer({ storage: storage })
+
+
+//----------------------------
 
 exports.getEvents = function (req, res, next) {
     Event.find({}, function (err, events) {
@@ -61,6 +88,15 @@ exports.getEventRandom = function (req, res, next) {
 
 
 exports.createEvent = function (req, res, next) {  
+
+    var img = fs.readFileSync(req.file.path);
+    var encode_image = img.toString('base64');
+    var finalImg = {
+        image: new Buffer(encode_image, 'base64'),
+        contentType: req.file.mimetype
+        
+    };
+
     let event = new Event(
         {
             date: req.body.date,
@@ -76,7 +112,7 @@ exports.createEvent = function (req, res, next) {
             country : req.body.country,
             created_by : req.body.created_by,
             
-            picture : req.body.picture
+            picture : finalImg
         }
     );
 

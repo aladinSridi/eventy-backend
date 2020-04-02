@@ -16,8 +16,9 @@ let EventSchema = new Schema({
     created_at : { type : Date, required: true, default: Date.now },
     created_by : { type : Schema.Types.ObjectId, required: true },
     //new 
-    picture: {type: String, required: [true, 'Picture is required']}
-
+    
+     picture: { image: Buffer, contentType: String }
+  
 });
 
 module.exports = mongoose.model('Event', EventSchema);
